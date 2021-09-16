@@ -25,6 +25,7 @@ cookies = cookie_manager.get_all()
 cookie = st.text_input("Cookie", key="0")
 clicked = st.button("Get")
 value = cookie_manager.get(cookie)
+st.write(value)
 
 
 
