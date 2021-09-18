@@ -15,7 +15,7 @@ cookies = cookie_manager.get_all()
 cookie = st.text_input("draw -> save ->  refresh page ->  run", 'show_results')
 if st.button("Run"):
 	
-	js_string = cookie
+	js_string = cookie_manager.get(cookie)
 	value=json.loads(js_string)
 
 	
