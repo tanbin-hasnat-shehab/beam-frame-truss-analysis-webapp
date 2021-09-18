@@ -15,6 +15,7 @@
 <button onclick="json_form()">Save</button>
 <input type="number" id='grid_spaces'value=50>
 <input type="text" id='type_op_st'value="truss">
+  <input type="text" id='input1'>
 
 
 <label style="font-size:30px" id='header'></label>
@@ -48,15 +49,22 @@ function json_form(){
   data.push({'type':'type_of_st','value':st_type1},{'type':'grid_spacing','value':grid_sp1});
   var json_str = JSON.stringify(data);
   //document.cookie = 'show_results' + "=" + json_str;
-  document.execCommand(json_str);
 
-
+writeToClipboard(json_str);
+async function writeToClipboard(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+      console.log(text);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 
 
   
   //navigator.clipboard.writeText(json_str);
-  console.log(json_str);
+  //console.log(json_str);
 
 
 
