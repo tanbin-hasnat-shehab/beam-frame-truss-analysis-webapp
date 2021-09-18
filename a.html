@@ -5,7 +5,7 @@
   <title></title>
 </head>
 <body>
-<p style="font-size:30px" id='header'></p>
+
 
 <button onclick='btn_p()' >Point load</button>
 <button onclick="btn_l()">Draw_member</button>
@@ -13,6 +13,11 @@
 
 <button onclick="sup_hinged()">hinged</button>
 <button onclick="json_form()">Save</button>
+<input type="number" id='grid_spaces'value=50>
+<input type="text" id='type_op_st'value="truss">
+
+
+<label style="font-size:30px" id='header'></label>
 
 
 
@@ -25,13 +30,6 @@
 
 
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-
-
-
 
 <script language="JavaScript">
 var c=0;
@@ -40,24 +38,18 @@ var x1,x2,y1,y2;
 var data=[];
 var data_unique=[];
 var g=1000;
-
+var grid_sp=parseInt(document.getElementById('grid_spaces').value);
+var st_type=document.getElementById('type_op_st').value;
 
 function json_form(){
+  var grid_sp1=parseInt(document.getElementById('grid_spaces').value);
+  var st_type1=document.getElementById('type_op_st').value;
 
-
-
-
-  
-  //var jsondata = JSON.stringify(Object.assign({}, data));
-  
- 
-  console.log((data));
-  var arr = ['foo', 'bar', 'baz'];
+  data.push({'type':'type_of_st','value':st_type1},{'type':'grid_spacing','value':grid_sp1});
   var json_str = JSON.stringify(data);
-  //createCookie('mycookie', json_str);
-  document.cookie='array'+'='+json_str;
-  window.location.reload(true);
-
+  
+  navigator.clipboard.writeText(json_str);
+  console.log(json_str);
 
 
 
@@ -74,22 +66,29 @@ var ctx = mathCanvas.getContext("2d");
 draw_defaults();
 function draw_defaults(){
         for (let i = 0; i < 10000; i+=grid_spacing) {
-                    ctx.moveTo(0, i);
+                ctx.beginPath();
+                
+                ctx.moveTo(0, i);
                 ctx.lineTo(10000,i);
+                ctx.lineWidth = 0.5;
                 ctx.stroke();
 
                 ctx.moveTo(i, 0);
                 ctx.lineTo(i,10000);
+                
                 ctx.stroke();}
 
 }
 
-
   function show_ord(event){
-
+        var type_of_st=document.getElementById('type_op_st').value;
+        var grid_sp=document.getElementById('grid_spaces').value;
+        var factor_grid=50/grid_sp;
         var xx=event.offsetX;
         var yy=event.offsetY;
-        document.getElementById('header').innerHTML='Mouse position at :  '+xx+','+yy;}
+        document.getElementById('header').innerHTML='Mouse position at :  '+xx/factor_grid+','+yy/factor_grid;
+        
+      }
 
 
 
@@ -138,9 +137,10 @@ function draw_defaults(){
               function point_load_input(x, y) {
 
                       var input = document.createElement('input');
-                      var inputangle = document.createElement('inputangle');
+                      
 
                       input.type = 'text';
+                      input.placeholder='P';
                       input.style.position = 'fixed';
                       input.style.left = (x-10) + 'px';
                       input.style.width = 30 + 'px';
@@ -172,14 +172,15 @@ function draw_defaults(){
                       //console.log('co ord '+offx+','+offy);
                       ctx.textBaseline = 'top';
                       ctx.textAlign = 'left';
-                      ctx.font = '20px Arial';
+                      ctx.font = '15px Arial';
+                      ctx.fillStyle = "#FF5733";
                       values=txt.split(',');
                       if(values[1]==undefined){values[1]=0;}
                       ctx.fillText((values[0]+','+values[1]+' deg'), x1, y1 - 100);
 
                       var new_y=g-offy;
                       var new_load=parseInt(values[0]);
-                      var new_rotation=270-parseInt(values[1]);
+                      var new_rotation=parseInt(values[1]);
                       data.push({'type':'point_load','load':new_load,'rotation':new_rotation,'pos_x':offx,'pos_y':new_y});
                       
 
@@ -195,6 +196,7 @@ function draw_defaults(){
                 if(cc===0){
                   x1=(Math.round(event.offsetX / grid_spacing) * grid_spacing); 
                   y1=(Math.round(event.offsetY / grid_spacing) * grid_spacing); 
+                  ctx.fillRect(x1-2.5,y1-2.5,5,5);
                   console.log('leave it 1st    '+x1+','+y1+','+x2+','+y2+'   and cc = '+cc);
                   cc++;
                 }
@@ -205,18 +207,63 @@ function draw_defaults(){
                   
                   x2=(Math.round(event.offsetX / grid_spacing) * grid_spacing); 
                   y2=(Math.round(event.offsetY / grid_spacing) * grid_spacing);
-                  console.log('leave it 2nd    '+x1+','+y1+','+x2+','+y2+'   and cc = '+cc);
+                  ctx.fillRect(x2-2.5,y2-2.5,5,5);
                   ctx.moveTo(x1, y1);
                   ctx.lineTo(x2,y2);
+                  ctx.lineWidth=3;
                   ctx.stroke();
                   var new_y1=g-y1;
                   var new_y2=g-y2;
-                  if(data.includes({'type':'line','x1':x1,'y1':y1,'x2':x2,'y2':y2})===false)
-                    {data.push({'type':'line','x1':x1,'y1':new_y1,'x2':x2,'y2':new_y2});}
                   cc=0;
+                  line_data_input(x1,y1,x2,y2);
 
+
+                  function line_data_input(xp1,yp1,xp2,yp2){
+
+                  var input = document.createElement('input');
+                      input.type = 'text';
+                      input.placeholder='EA,w';
+                      input.style.position = 'fixed';
+                      input.style.left = (xp1+xp2)/2 + 'px';
+                      input.style.width = 30 + 'px';
+                      input.style.top = (yp1+yp2 )/2 + 'px';
+                      input.onkeydown = handleEnter;
+                      document.body.appendChild(input);
+                    }
+                    function handleEnter(e) {
+                                                  var keyCode = e.keyCode;
+                                                  if (keyCode === 13) {
+                                                      var left=parseInt(this.style.left);
+                                                      var top=parseInt(this.style.top);
+                                                      line_data_send(this.value,left,top);
+                                                      document.body.removeChild(this);
+                                                      hasInput = false;
+                                                      
+                                                                      }
+                                          } 
+
+                    function line_data_send(txt, x_x, y_y) {
+                                                                  ctx.textBaseline = 'top';
+                                                                  ctx.fillStyle = "#ff0000";
+                                                                  ctx.textAlign = 'left';
+                                                                  ctx.font = '10px Arial';
+                                                                  line_val=txt.split(',');
+                                                                  if(line_val[1]==undefined){line_val[1]=0;}
+                                                                  if(line_val[0]==''){line_val[0]=1;}
+                                                                  ctx.fillText(('EA = '+line_val[0]+',w = '+line_val[1]), x_x, y_y);
+
+                                                                  
+                                                                  var EA=parseInt(line_val[0]);
+                                                                  var W=parseInt(line_val[1]);
+                                                                  
+                                                                  data.push({'type':'line','x1':x1,'y1':new_y1,'x2':x2,'y2':new_y2,'EA':EA,'W':W});
+                                                            }
+
+                                              
+
+                
                 }
-                }
+              }
       if(c===3){
               var img = new Image();
               //img.src = "https://i.ibb.co/7gKxPm5/a.png";
