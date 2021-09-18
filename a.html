@@ -47,9 +47,29 @@ function json_form(){
 
   data.push({'type':'type_of_st','value':st_type1},{'type':'grid_spacing','value':grid_sp1});
   var json_str = JSON.stringify(data);
+
+  try {
+  const imgURL = json_str;
+  const data = await fetch(imgURL);
+  const blob = await data.blob();
+  await navigator.clipboard.write([
+    new ClipboardItem({
+      [blob.type]: blob
+    })
+  ]);
+  console.log('Image copied.');
+} catch (err) {
+  console.error(err.name, err.message);
+}
+
+
+
+
+
+
   
-  navigator.clipboard.writeText(json_str);
-  console.log(json_str);
+  //navigator.clipboard.writeText(json_str);
+  //console.log(json_str);
 
 
 
