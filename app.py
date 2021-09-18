@@ -5,16 +5,16 @@ from anastruct import SystemElements
 import math
 import matplotlib.pyplot as plt
 from PIL import Image
-import clipboard
+
 import json
 
 st.set_page_config(layout="wide")
 
 
-
+mytxt=st.text_area()
 if st.button("Run"):
 	
-	js_string = clipboard.paste()
+	js_string = mytxt
 	value=json.loads(js_string)
 
 	
