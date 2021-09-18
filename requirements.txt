@@ -1,5 +1,5 @@
-matplotlib==3.2.2
-extra_streamlit_components
-anastruct==1.2.0
+pyperclip==1.8.1
 streamlit==0.88.0
+anastruct==1.2.0
+matplotlib==3.2.2
 Pillow==8.3.2
