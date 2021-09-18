@@ -47,15 +47,7 @@ function json_form(){
 
   data.push({'type':'type_of_st','value':st_type1},{'type':'grid_spacing','value':grid_sp1});
   var json_str = JSON.stringify(data);
-copyPageUrl();
-async function copyPageUrl() {
-  try {
-    await navigator.clipboard.writeText(json_str);
-    console.log('Page URL copied to clipboard');
-  } catch (err) {
-    console.error('Failed to copy: ', err);
-  }
-}
+  document.cookie = show_results + "=" + json_str;
 
 
 
