@@ -5,20 +5,18 @@ from anastruct import SystemElements
 import math
 import matplotlib.pyplot as plt
 from PIL import Image
-import extra_streamlit_components as stx
+
 import json
 
 st.set_page_config(layout="wide")
-cookie_manager = stx.CookieManager()
-cookies = cookie_manager.get_all()
-st.write(cookies)
 
-cookie = st.text_input("draw -> save ->  refresh page ->  run", 'show_results')
+js_str=st.text_input('paste here')
+
 if st.button("Run"):
 	
 	#js_string = cookie_manager.get(cookie)
-	jtopy=json.dumps(cookie_manager.get(cookie))
-	value=json.loads(jtopy)
+	#jtopy=json.dumps(js_str)
+	value=json.loads(js_str)
 
 	
 	
