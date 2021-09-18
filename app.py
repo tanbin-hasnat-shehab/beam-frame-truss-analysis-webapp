@@ -5,7 +5,7 @@ from anastruct import SystemElements
 import math
 import matplotlib.pyplot as plt
 from PIL import Image
-import pyperclip
+import clipboard
 import json
 
 st.set_page_config(layout="wide")
@@ -14,14 +14,14 @@ st.set_page_config(layout="wide")
 
 if st.button("Run"):
 	
-	js_string = pyperclip.paste()
+	js_string = clipboard.paste()
 	value=json.loads(js_string)
 
 	
 	
 
 	#print(value)
-	
+		
 
 
 
