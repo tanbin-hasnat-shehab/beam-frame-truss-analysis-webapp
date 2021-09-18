@@ -12,7 +12,7 @@ st.set_page_config(layout="wide")
 cookie_manager = stx.CookieManager()
 cookies = cookie_manager.get_all()
 
-cookie = st.text_input("draw -> save ->  refresh page ->  run", show_results)
+cookie = st.text_input("draw -> save ->  refresh page ->  run", 'show_results')
 if st.button("Run"):
 	
 	js_string = cookie
