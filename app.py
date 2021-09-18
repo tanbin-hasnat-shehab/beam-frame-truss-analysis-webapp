@@ -11,7 +11,7 @@ import json
 st.set_page_config(layout="wide")
 
 js_str=st.text_input('paste here')
-
+aaa=st.slider("zoom in out results", 0, 300, value=30)
 if st.button("Run"):
 	
 	#js_string = cookie_manager.get(cookie)
@@ -54,6 +54,28 @@ if st.button("Run"):
 		if data['type']=='point_load':
 			data['pos_x']=data['pos_x']/grid
 			data['pos_y']=data['pos_y']/grid
+
+
+	my_points_x=[]
+	my_points_y=[]
+
+	for data in new_data:
+		if data['type']=='line':
+			my_points_x.append(data['x1'])
+			my_points_y.append(data['y1'])
+			my_points_x.append(data['x2'])
+			my_points_y.append(data['y2'])
+		if data['type']=='fixed_support':
+			my_points_x.append(data['x'])
+			my_points_y.append(data['y'])
+			
+		if data['type']=='hinged_support':
+			my_points_x.append(data['x'])
+			my_points_y.append(data['y'])
+			
+		if data['type']=='point_load':
+			my_points_x.append(data['pos_x'])
+			my_points_y.append(data['pos_y'])
 			
 
 				
@@ -116,13 +138,22 @@ if st.button("Run"):
 		
 		ss.add_support_hinged(node_id=ss.find_node_id([hinged[i]['x'],hinged[i]['y']]))
 	ss.solve()
+
+
+	
+	
+
 	ss.show_structure()
+	plt.xlim([min(my_points_x)-aaa,max(my_points_x)+aaa])
+	plt.ylim([min(my_points_y)-aaa,max(my_points_y)+aaa])
 	plt.title('STRUCTURE')
 	plt.savefig('my-figure1.png')
 	image1 = Image.open('my-figure1.png')
 	st.image(image1)
-
+	
 	ss.show_reaction_force()
+	plt.xlim([min(my_points_x)-aaa,max(my_points_x)+aaa])
+	plt.ylim([min(my_points_y)-aaa,max(my_points_y)+aaa])
 	plt.title('REACTIONS')
 	plt.savefig('my-figure2.png')
 	image2 = Image.open('my-figure2.png')
@@ -130,6 +161,8 @@ if st.button("Run"):
 
 
 	ss.show_axial_force()
+	plt.xlim([min(my_points_x)-aaa,max(my_points_x)+aaa])
+	plt.ylim([min(my_points_y)-aaa,max(my_points_y)+aaa])
 	plt.title('AXIAL FORCE DIAGRAM')
 	plt.savefig('my-figure3.png')
 	image3 = Image.open('my-figure3.png')
@@ -137,16 +170,21 @@ if st.button("Run"):
 
 	if structure_type=='beam' or structure_type=='frame':
 		ss.show_bending_moment()
+		plt.xlim([min(my_points_x)-aaa,max(my_points_x)+aaa])
+		plt.ylim([min(my_points_y)-aaa,max(my_points_y)+aaa])
 		plt.title('BENDING MOMENT DIAGRAM')
 		plt.savefig('my-figure4.png')
 		image4 = Image.open('my-figure4.png')
 		st.image(image4)
 
 		ss.show_shear_force()
+		plt.xlim([min(my_points_x)-aaa,max(my_points_x)+aaa])
+		plt.ylim([min(my_points_y)-aaa,max(my_points_y)+aaa])
 		plt.title('SHEAR FORCE DIAGRAM')
 		plt.savefig('my-figure5.png')
 		image5 = Image.open('my-figure5.png')
 		st.image(image5)
+	
 
 
 def my_html(html_file,width=2000,height=2000):
