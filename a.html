@@ -43,6 +43,7 @@ var st_type=document.getElementById('type_op_st').value;
 
 function json_form(){
   var grid_sp1=parseInt(document.getElementById('grid_spaces').value);
+  grid_sp1=50/grid_sp1;
   var st_type1=document.getElementById('type_op_st').value;
 
   data.push({'type':'type_of_st','value':st_type1},{'type':'grid_spacing','value':grid_sp1});
