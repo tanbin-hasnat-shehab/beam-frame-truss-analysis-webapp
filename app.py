@@ -11,12 +11,14 @@ import json
 st.set_page_config(layout="wide")
 cookie_manager = stx.CookieManager()
 cookies = cookie_manager.get_all()
+st.write(cookies)
 
 cookie = st.text_input("draw -> save ->  refresh page ->  run", 'show_results')
 if st.button("Run"):
 	
-	js_string = cookie_manager.get(cookie)
-	value=json.loads(js_string)
+	#js_string = cookie_manager.get(cookie)
+	jtopy=json.dumps(cookie_manager.get(cookie))
+	value=json.loads(jtopy)
 
 	
 	
