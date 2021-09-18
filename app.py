@@ -11,7 +11,7 @@ import json
 st.set_page_config(layout="wide")
 
 
-mytxt=st.text_area()
+mytxt=st.text_area('paste here')
 if st.button("Run"):
 	
 	js_string = mytxt
