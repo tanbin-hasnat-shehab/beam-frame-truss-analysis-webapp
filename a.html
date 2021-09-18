@@ -209,7 +209,7 @@ function draw_defaults(){
                 if(cc===0){
                   x1=(Math.round(event.offsetX / grid_spacing) * grid_spacing); 
                   y1=(Math.round(event.offsetY / grid_spacing) * grid_spacing); 
-                  ctx.fillRect(x1-2.5,y1-2.5,5,5);
+                  ctx.fillRect(x1-5,y1-5,10,10);
                   console.log('leave it 1st    '+x1+','+y1+','+x2+','+y2+'   and cc = '+cc);
                   cc++;
                 }
@@ -220,7 +220,7 @@ function draw_defaults(){
                   
                   x2=(Math.round(event.offsetX / grid_spacing) * grid_spacing); 
                   y2=(Math.round(event.offsetY / grid_spacing) * grid_spacing);
-                  ctx.fillRect(x2-2.5,y2-2.5,5,5);
+                  ctx.fillRect(x2-5,y2-5,10,10);
                   ctx.moveTo(x1, y1);
                   ctx.lineTo(x2,y2);
                   ctx.lineWidth=3;
