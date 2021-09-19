@@ -1,5 +1,5 @@
-streamlit==0.88.0
+openpyxl==3.0.5
 matplotlib==3.2.2
+streamlit==0.88.0
 anastruct==1.2.0
-extra_streamlit_components==0.1.43
 Pillow==8.3.2
