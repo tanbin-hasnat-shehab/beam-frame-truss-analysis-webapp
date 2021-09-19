@@ -5,8 +5,17 @@ from anastruct import SystemElements
 import math
 import matplotlib.pyplot as plt
 from PIL import Image
-
+from openpyxl import load_workbook,Workbook
 import json
+wb=Workbook()
+  
+wb.create_sheet("DISPLACEMENTS")
+wb.create_sheet('BENDING_MOMENT')
+wb.create_sheet('AXIAL_FORCE')
+wb.create_sheet('SHEAR_FORCE')
+wb.create_sheet('REACTIONS')
+wb.save('data.xlsx')
+
 
 st.set_page_config(layout="wide")
 
@@ -139,8 +148,12 @@ if st.button("Run"):
 		ss.add_support_hinged(node_id=ss.find_node_id([hinged[i]['x'],hinged[i]['y']]))
 	ss.solve()
 
-
-	
+	wb=load_workbook('data.xlsx')
+	dis=wb['DISPLACEMENTS']
+	ben=wb['BENDING_MOMENT']
+	axi=wb['AXIAL_FORCE']
+	shr=wb['SHEAR_FORCE']
+	rea=wb['REACTIONS']	
 	
 
 	ss.show_structure()
@@ -158,6 +171,28 @@ if st.button("Run"):
 	plt.savefig('my-figure2.png')
 	image2 = Image.open('my-figure2.png')
 	st.image(image2)
+	'''
+	m=ss.show_reaction_force(show=False,values_only=True)
+	for i in range(0,len(m[0])):
+		rea.cell(row=i+1,column=1).value=m[0][i]
+		rea.cell(row=i+1,column=2).value=m[1][i]
+	'''
+
+
+	ss.show_displacement()
+	plt.xlim([min(my_points_x)-aaa,max(my_points_x)+aaa])
+	plt.ylim([min(my_points_y)-aaa,max(my_points_y)+aaa])
+	plt.title('DISPLACEMENTS')
+	plt.savefig('my-figure22.png')
+	image22 = Image.open('my-figure22.png')
+	st.image(image22)
+	m=ss.show_displacement(show=False,values_only=True)
+	for i in range(0,len(m[0])):
+		dis.cell(row=i+1,column=1).value=m[0][i]
+		dis.cell(row=i+1,column=2).value=m[1][i]
+	
+	
+
 
 
 	ss.show_axial_force()
@@ -167,6 +202,10 @@ if st.button("Run"):
 	plt.savefig('my-figure3.png')
 	image3 = Image.open('my-figure3.png')
 	st.image(image3)
+	m=ss.show_axial_force(show=False,values_only=True)
+	for i in range(0,len(m[0])):
+		axi.cell(row=i+1,column=1).value=m[0][i]
+		axi.cell(row=i+1,column=2).value=m[1][i]
 
 	if structure_type=='beam' or structure_type=='frame':
 		ss.show_bending_moment()
@@ -176,6 +215,10 @@ if st.button("Run"):
 		plt.savefig('my-figure4.png')
 		image4 = Image.open('my-figure4.png')
 		st.image(image4)
+		m=ss.show_bending_moment(show=False,values_only=True)
+		for i in range(0,len(m[0])):
+			ben.cell(row=i+1,column=1).value=m[0][i]
+			ben.cell(row=i+1,column=2).value=m[1][i]
 
 		ss.show_shear_force()
 		plt.xlim([min(my_points_x)-aaa,max(my_points_x)+aaa])
@@ -184,8 +227,12 @@ if st.button("Run"):
 		plt.savefig('my-figure5.png')
 		image5 = Image.open('my-figure5.png')
 		st.image(image5)
+		m=ss.show_shear_force(show=False,values_only=True)
+		for i in range(0,len(m[0])):
+			shr.cell(row=i+1,column=1).value=m[0][i]
+			shr.cell(row=i+1,column=2).value=m[1][i]
 	
-
+	wb.save('data.xlsx')
 
 def my_html(html_file,width=2000,height=2000):
 	html_file=codecs.open(html_file,'r')
