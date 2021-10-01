@@ -132,13 +132,14 @@ function draw_defaults(){
 
         if(c===1){
               var img = new Image();
-              img.src = "https://i.ibb.co/7gKxPm5/a.png";
+              //img.src = "https://i.ibb.co/7gKxPm5/a.png";
+              img.src='https://i.ibb.co/611D68d/aa.png';
               //img.src = "a.png";
 
               var offx=   Math.round(event.offsetX / grid_spacing) * grid_spacing;    
               var offy=Math.round(event.offsetY / grid_spacing) * grid_spacing;
-              var x=offx-img.width/2;
-              var y=offy-img.height;
+              var x=offx-img.width/2-10;
+              var y=offy-img.height+5;
               document.getElementById('header').value=offx+','+offy;
               
 
@@ -190,7 +191,7 @@ function draw_defaults(){
                       ctx.fillStyle = "#FF5733";
                       values=txt.split(',');
                       if(values[1]==undefined){values[1]=0;}
-                      ctx.fillText((values[0]+','+values[1]+' deg'), x1, y1 - 100);
+                      ctx.fillText((values[0]+','+values[1]+' deg'), x1-30, y1 - 70);
 
                       var new_y=g-offy;
                       var new_load=parseInt(values[0]);
@@ -282,6 +283,7 @@ function draw_defaults(){
               var img = new Image();
               //img.src = "https://i.ibb.co/7gKxPm5/a.png";
               img.src = "https://i.ibb.co/vv04R1z/fixed.png";
+              //img.src='https://linkpicture.com/q/1-1.png';
 
 
               var offx=   Math.round(event.offsetX / grid_spacing) * grid_spacing;    
