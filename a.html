@@ -195,7 +195,7 @@ function draw_defaults(){
 
                       var new_y=g-offy;
                       var new_load=parseFloat(values[0]);
-                      var new_rotation=parseInt(values[1]);
+                      var new_rotation=parseFloat(values[1]);
                       data.push({'type':'point_load','load':new_load,'rotation':new_rotation,'pos_x':offx,'pos_y':new_y});
                       
 
@@ -268,7 +268,7 @@ function draw_defaults(){
                                                                   ctx.fillText(('EA = '+line_val[0]+',w = '+line_val[1]), x_x, y_y);
 
                                                                   
-                                                                  var EA=parseInt(line_val[0]);
+                                                                  var EA=parseFloat(line_val[0]);
                                                                   var W=parseFloat(line_val[1]);
                                                                   
                                                                   data.push({'type':'line','x1':x1,'y1':new_y1,'x2':x2,'y2':new_y2,'EA':EA,'W':W});
