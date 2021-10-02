@@ -293,7 +293,7 @@ if st.button("Run"):
 def my_html(html_file,width=2000,height=2000):
 	html_file=codecs.open(html_file,'r')
 	page=html_file.read()
-	stc.html(page,width=width,height=height,scrolling=False)
+	stc.html(page,width=width,height=height,scrolling=True)
 
 
 my_html('a.html')
