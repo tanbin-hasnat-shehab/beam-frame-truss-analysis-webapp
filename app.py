@@ -174,12 +174,16 @@ if st.button("Run"):
 		for i in range(len(line_arr)-1):
 
 			print(f'limits {line_arr[i]} to {line_arr[i+1]}')
-			for j in range(line_arr[i],line_arr[i+1]+1):
+			for j in range(line_arr[i],line_arr[i+1]):
 				if new_data[j+1]['type']=='point_load':
 					if (new_data[j+1]['pos_x'],new_data[j+1]['pos_y']) not in joint_points:
 						cr+=1
 						ss.q_load(q=-new_data[line_arr[i]]['W'], element_id=cr, direction='element')
 						print(f'this is {j+1} section and value is  {new_data[line_arr[i]]["W"]}')
+				else:
+					cr+=1
+					ss.q_load(q=-new_data[line_arr[i]]['W'], element_id=cr, direction='element')
+
 
 
 
