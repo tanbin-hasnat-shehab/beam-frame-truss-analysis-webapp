@@ -265,6 +265,8 @@ if st.button("Run"):
 	for i in range(0,len(m[0])):
 		axi.cell(row=i+1,column=1).value=m[0][i]
 		axi.cell(row=i+1,column=2).value=m[1][i]
+	if structure_type=='truss':
+		st.title('Combined image')
 
 	if structure_type=='beam' or structure_type=='frame':
 		ss.show_bending_moment()
@@ -290,6 +292,42 @@ if st.button("Run"):
 		for i in range(0,len(m[0])):
 			shr.cell(row=i+1,column=1).value=m[0][i]
 			shr.cell(row=i+1,column=2).value=m[1][i]
+		st.title('Combined image')
+		im1=Image.open('my-figure1.png')
+		im2=Image.open('my-figure2.png')
+		im22=Image.open('my-figure22.png')
+		im3=Image.open('my-figure3.png')
+		im4=Image.open('my-figure4.png')
+		im5=Image.open('my-figure5.png')
+
+		im_size=im1.size
+		combined_im=Image.new('RGB', (im_size[0],im_size[1]*6),(250,250,250))
+		combined_im.paste(im1,(0,0))
+		combined_im.paste(im2,(0,im_size[1]*1))
+		combined_im.paste(im22,(0,im_size[1]*2))
+		combined_im.paste(im3,(0,im_size[1]*3))
+		combined_im.paste(im4,(0,im_size[1]*4))
+		combined_im.paste(im5,(0,im_size[1]*5))
+		combined_im.save('comb.png','PNG')
+		st.image(combined_im)
+	else:
+		im1=Image.open('my-figure1.png')
+		im2=Image.open('my-figure2.png')
+		im22=Image.open('my-figure22.png')
+		im3=Image.open('my-figure3.png')
+		
+
+		im_size=im1.size
+		combined_im=Image.new('RGB', (im_size[0],im_size[1]*4),(250,250,250))
+		combined_im.paste(im1,(0,0))
+		combined_im.paste(im2,(0,im_size[1]*1))
+		combined_im.paste(im22,(0,im_size[1]*2))
+		combined_im.paste(im3,(0,im_size[1]*3))
+		
+		combined_im.save('comb.png','PNG')
+		st.image(combined_im)
+
+
 	
 	wb.save('data.xlsx')
 	
