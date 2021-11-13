@@ -8,19 +8,94 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<style type="text/css">
+  #header {
+  position: fixed;
+}
+
+#content {
+  margin-top: 100px;
+}
+
+.radio {
+  background: #454857;
+  padding: 4px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 3px rgba(35, 33, 45, 0.3),
+    0 0 0 3px rgba(185, 185, 185, 0.3);
+  position: relative;
+}
+
+.radio input {
+  width: auto;
+  height: 100%;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 4px 8px;
+  background: #454857;
+  color: #bdbdbdbd;
+  font-size: 14px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  transition: all 100ms linear;
+}
+
+.radio input:checked {
+  background-image: linear-gradient(180deg, #95d891, #74bbad);
+  color: #fff;
+  box-shadow: 0 1px 1px #0000002e;
+  text-shadow: 0 1px 0px #79485f7a;
+}
+
+.radio input:before {
+  content: attr(label);
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
 
 
-<button onclick='btn_p()'class="btn btn-outline-success">Point load</button>
-<button onclick="btn_l()"class="btn btn-outline-success" >Draw_member</button>
-<button onclick="sup_fixed()"  class="btn btn-outline-success" >fixed</button>
 
-<button onclick="sup_hinged()"  class="btn btn-outline-success" >hinged</button>
-<button onclick="json_form()" id='over_btn'  class="btn btn-outline-success" >Save</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+<div class="radio" onclick="tr_fn()">
+  <input label="POINT LOAD" type="radio"id="pointt" name="gender" value="point_load" >
+  <input label="DRAW MEMBER" type="radio" id="memberr" name="gender" value="member">
+  <input label="FIXED SUPPORT" type="radio" id="fixedd" name="gender" value="fixedd">
+  <input label="HINGED SUPPORT" type="radio" id="hingedd" name="gender" value="hingedd">
+  <input label="SAVE" type="radio" id="savee" name="gender" value="savee">
+</div>
+
+
+
+<div class='header'>
+  <label>Grid spacing</label>
 <input type="number" id='grid_spaces'value=50>
+<label>Type of structure</label>
 <input type="text" id='type_op_st'value="truss">
 <input type="text" id='json_in' >
-
 <label style="font-size:30px" id='header'></label>
+</div>
+
+
+
 
 
 
@@ -35,6 +110,24 @@
 
 
 <script language="JavaScript">
+  function tr_fn(){
+    if(document.getElementById('pointt').checked) {
+  btn_p();
+}else if(document.getElementById('memberr').checked) {
+ btn_l();
+}
+else if(document.getElementById('fixedd').checked) {
+ sup_fixed();
+}
+else if(document.getElementById('hingedd').checked) {
+ sup_hinged();
+}
+else if(document.getElementById('savee').checked) {
+ json_form();
+}
+
+
+  }
 var c=0;
 var cc=0;
 var x1,x2,y1,y2;
