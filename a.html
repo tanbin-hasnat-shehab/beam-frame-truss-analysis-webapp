@@ -9,6 +9,31 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <style type="text/css">
+  body {
+  background: linear-gradient(-45deg,#CDD9FF,#A5BAFD,#F7DBD5,#FCEDEA,#FEF9F8,#FCFCBA,#FAFAA7,#EAFDE6,#D7FECF,#ADFA9D);
+  background-size: 800% 800%;
+  animation: gradient 20s ease infinite;
+  height: 100vh;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+
+
+
   #header {
   position: fixed;
 }
@@ -93,7 +118,6 @@
 <input type="text" id='json_in' >
 <label style="font-size:30px" id='header'></label>
 </div>
-
 
 
 
