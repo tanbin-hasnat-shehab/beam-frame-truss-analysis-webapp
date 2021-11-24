@@ -240,7 +240,7 @@ function draw_defaults(){
         var factor_grid=50/grid_sp;
         var xx=event.offsetX;
         var yy=event.offsetY;
-        document.getElementById('header').innerHTML='x:'+xx/factor_grid+' y:'+yy/factor_grid;
+        document.getElementById('header').innerHTML='x:'+Math.round(xx/factor_grid)+' y:'+Math.round(yy/factor_grid);
         
       }
 
