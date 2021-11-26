@@ -47,7 +47,7 @@ if st.button("Run"):
 	for data in new_data:
 		if data['type']=='line':
 			line_arr.append(new_data.index(data))
-		if data['type']=='fixed_support' or data['type']=='hinged_support':
+		if data['type']=='fixed_support' or data['type']=='hinged_support' or data['type']=='rolled_support':
 			line_arr.append(new_data.index(data))
 			break
 
@@ -75,7 +75,7 @@ if st.button("Run"):
 			data['x']=data['x']/grid
 			data['y']=data['y']/grid
 			
-		if data['type']=='hinged_support':
+		if data['type']=='hinged_support' or data['type']=='rolled_support':
 			data['x']=data['x']/grid
 			data['y']=data['y']/grid
 			
@@ -106,7 +106,7 @@ if st.button("Run"):
 			my_points_y.append(data['y'])
 
 			
-		if data['type']=='hinged_support':
+		if data['type']=='hinged_support' or data['type']=='rolled_support':
 			my_points_x.append(data['x'])
 			my_points_y.append(data['y'])
 
@@ -132,6 +132,8 @@ if st.button("Run"):
 	fixed=[]
 	no_of_hinged=0
 	hinged=[]
+	no_of_rolled=0
+	rolled=[]
 	member_loads=[]
 
 	for i in range(len(new_data)):
@@ -148,6 +150,9 @@ if st.button("Run"):
 		if new_data[i]['type']=='hinged_support':
 			no_of_hinged+=1
 			hinged.append(new_data[i])
+		if new_data[i]['type']=='rolled_support':
+			no_of_rolled+=1
+			rolled.append(new_data[i])
 
 
 	if structure_type=='truss':
@@ -211,6 +216,9 @@ if st.button("Run"):
 	for i in range(no_of_hinged):
 		
 		ss.add_support_hinged(node_id=ss.find_node_id([hinged[i]['x'],hinged[i]['y']]))
+	for i in range(no_of_rolled):
+		
+		ss.add_support_roll(node_id=ss.find_node_id([rolled[i]['x'],rolled[i]['y']]))
 	ss.solve()
 
 	wb=load_workbook('data.xlsx')
