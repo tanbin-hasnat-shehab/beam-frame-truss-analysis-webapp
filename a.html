@@ -120,6 +120,7 @@
   <input label="DRAW MEMBER" type="radio" id="memberr" name="gender" value="member">
   <input label="FIXED SUPPORT" type="radio" id="fixedd" name="gender" value="fixedd">
   <input label="HINGED SUPPORT" type="radio" id="hingedd" name="gender" value="hingedd">
+  <input label="ROLLER SUPPORT" type="radio" id="rolledd" name="gender" value="rolledd">
   <input label="SAVE" type="radio" id="savee" name="gender" value="savee">
 </div>
 
@@ -160,6 +161,9 @@ else if(document.getElementById('fixedd').checked) {
 }
 else if(document.getElementById('hingedd').checked) {
  sup_hinged();
+}
+else if(document.getElementById('rolledd').checked) {
+ sup_roll();
 }
 else if(document.getElementById('savee').checked) {
  json_form();
@@ -262,6 +266,9 @@ function draw_defaults(){
 }
  function sup_hinged(){
           c=4;
+        }
+ function sup_roll(){
+          c=5;
         }
 
 
@@ -422,8 +429,8 @@ function draw_defaults(){
       if(c===3){
               var img = new Image();
               //img.src = "https://i.ibb.co/7gKxPm5/a.png";
-              img.src = "https://i.ibb.co/7r2ZwhC/fixed.png";
-              //img.src='https://linkpicture.com/q/1-1.png';
+              //img.src = "https://i.ibb.co/7r2ZwhC/fixed.png";
+              img.src='https://i.ibb.co/T4f0wSr/fixed.png';
 
 
               var offx=   Math.round(event.offsetX / grid_spacing) * grid_spacing;    
@@ -450,7 +457,7 @@ function draw_defaults(){
               var img = new Image();
               //img.src = "https://i.ibb.co/7gKxPm5/a.png";
               img.src = "https://i.ibb.co/pXjLSgt/hinged.png";
-              //img.src='/hinged.png'
+              //img.src='hinged.png'
 
 
               var offx=   Math.round(event.offsetX / grid_spacing) * grid_spacing;    
@@ -461,6 +468,22 @@ function draw_defaults(){
               console.log(offx+','+offy)
               var new_yyy=g-offy;
               data.push({'type':'hinged_support','x':offx,'y':new_yyy});
+
+              ctx.drawImage(img,x,y);
+            }
+      if(c===5){
+              var img = new Image();
+              img.src='https://i.ibb.co/wyBP90p/roll.png'
+
+
+              var offx=   Math.round(event.offsetX / grid_spacing) * grid_spacing;    
+              var offy=Math.round(event.offsetY / grid_spacing) * grid_spacing;
+              var x=offx-img.width/2;
+              var y=offy-img.height+img.height;
+              
+              console.log(offx+','+offy)
+              var new_yyy=g-offy;
+              data.push({'type':'rolled_support','x':offx,'y':new_yyy});
 
               ctx.drawImage(img,x,y);
             }
