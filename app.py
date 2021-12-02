@@ -17,10 +17,10 @@ wb.create_sheet('REACTIONS')
 wb.save('data.xlsx')
 wt=load_workbook('b.xlsx')
 dsheet=wt['sheet']
-#st.title(f'the value is {dsheet.cell(row=5,column=2).value}')
+
 
 st.set_page_config(layout="wide")
-
+st.title(f'the value is {dsheet.cell(row=5,column=2).value}')
 js_str=st.text_input('paste here')
 aaa=st.slider("zoom in out results", 0, 300, value=30)
 if st.button("Run"):
