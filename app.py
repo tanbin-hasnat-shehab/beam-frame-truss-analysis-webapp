@@ -15,7 +15,9 @@ wb.create_sheet('AXIAL_FORCE')
 wb.create_sheet('SHEAR_FORCE')
 wb.create_sheet('REACTIONS')
 wb.save('data.xlsx')
-
+wt=load_workbook('b.xlsx')
+dsheet=wt['sheet']
+st.title(f'the value is {dsheet.cell(row=5,column=1).value}')
 
 st.set_page_config(layout="wide")
 
